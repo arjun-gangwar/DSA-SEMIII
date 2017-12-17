@@ -29,12 +29,9 @@ public:
           return newptr;
      }
 
-     void inNode()
+     void inNode(T x)
      {
-          T x;
           node *newptr = nullptr;
-          cout<<"Enter data: ";
-          cin>>x;
           newptr = createNewNode(x);
           if(front == nullptr)
                front = rear = newptr;
@@ -56,6 +53,19 @@ public:
                front = front->next;
                delete ptr;
           }
+     }
+
+     T getFront()
+     {
+          return front->data;
+     }
+
+     bool isEmpty()
+     {
+          if(front == nullptr)
+               return true;
+          else
+               return false;
      }
 
      void print()

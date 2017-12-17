@@ -58,6 +58,14 @@ public:
           }
      }
 
+     bool isEmpty()
+     {
+          if(front == nullptr)
+               return true;
+          else
+               return false;
+     }
+
      void print()
      {
           node *ptr = front;

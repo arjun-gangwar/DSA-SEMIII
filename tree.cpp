@@ -8,12 +8,12 @@ class bst
      class node
      {
      public:
-          int data;
+          char data;
           node* left;
           node* right;
           node()  //constructor for node class
           {
-               data = 0;
+               data = ' ';
                left = nullptr;
                right = nullptr;
           }
@@ -25,7 +25,7 @@ public:
           root = nullptr;
      }
 
-     node* createNewNode(int d) //function to allocate memory for new node
+     node* createNewNode(char d) //function to allocate memory for new node
      {
           node* newptr = new node;
           newptr->data = d;
@@ -34,7 +34,7 @@ public:
 
      void insert() //insertion without reccursion
      {
-          int x;
+          char x;
           cout<<"Enter data: ";
           cin>>x;
           node *newptr, *ptr;
@@ -91,27 +91,79 @@ public:
 
      void levelOrder()
      {
+          if(root == nullptr)
+               cout<<"ERROR: tree is empty"<<endl;
+          queue<node*> q;  //a queue of type node pointers
+          q.inNode(root);
+          //while there is atleast one discoverable inNode
+          while(!q.isEmpty())
+          {
+               node* ptr = q.getFront();
+               cout<<ptr->data<<" ";
+               if(ptr->left != nullptr)
+                    q.inNode(ptr->left);
+               if(ptr->right != nullptr)
+                    q.inNode(ptr->right);
+               q.delNode();
+          }
+          cout<<endl;
+     }
 
+     void inorder(node* ptr)
+     {
+          if(ptr == nullptr)
+               return;
+          else
+          {
+               inorder(ptr->left);
+               cout<<ptr->data<<" ";
+               inorder(ptr->right);
+          }
+     }
+
+     void preorder(node* ptr)
+     {
+          if(ptr == nullptr)
+               return;
+          else
+          {
+               cout<<ptr->data<<" ";
+               preorder(ptr->left);
+               preorder(ptr->right);
+          }
+     }
+
+     void postorder(node* ptr)
+     {
+          if(ptr == nullptr)
+               return;
+          else
+          {
+               postorder(ptr->left);
+               postorder(ptr->right);
+               cout<<ptr->data<<" ";
+          }
      }
 };
 
 int main()
 {
-     bst t1;
-     t1.insert();
-     t1.insert();
-     t1.insert();
-     t1.insert();
-     t1.insert();
-     t1.insert();
+     bst t1;  //bst object
+     for(int i=0; i<11; i++)
+     {
+          t1.insert();
+     }
+     cout<<"Levelorder: ";
+     t1.levelOrder();
+     cout<<"Inorder: ";
+     t1.inorder(t1.root);
+     cout<<endl;
+     cout<<"Preorder: ";
+     t1.preorder(t1.root);
+     cout<<endl;
+     cout<<"Postorder: ";
+     t1.postorder(t1.root);
+     cout<<endl;
      t1.minMax();
-     bst t2;
-     t2.insert();
-     t2.insert();
-     t2.insert();
-     t2.insert();
-     t2.insert();
-     t2.insert();
-     t2.minMax();
      return 0;
 }
